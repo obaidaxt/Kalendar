@@ -1,0 +1,82 @@
+body{
+    box-sizing: border-box;
+    margin: 0;
+}
+                   
+
+
+#title{
+    border-bottom: 3px blue solid;
+    background-color: rgb(230, 185, 73);
+    padding: 8px;
+    grid-area: title;
+    text-align: center;
+}
+.link{
+
+    padding: 1rem 2rem;
+    border-right: 2px solid black;
+}
+
+.right{
+    padding: 1rem;
+
+    grid-area: right;
+}
+.link{
+    grid-area: link;
+}
+.all{
+    margin: 6rem 20rem;
+    border: 2px solid blue;
+
+
+    display: grid;
+
+    grid-template-columns: 1fr 3fr ;
+    grid-template-areas:    "title title "
+                            "link right ";
+
+
+}    
+.we{
+    color: rgb(60, 60, 184);
+}
+.w{
+    color:rgb(199, 22, 22) ;
+}
+
+.monat{
+    font-size: 1.5rem;
+    grid-area: monat;
+    padding: 0;
+    margin: 0;
+}
+.monat li{
+    float: left;
+    list-style: none;
+}
+.jahr{
+    font-size: 1.5rem;
+
+    border-right: 2px solid black;
+    padding: 0;
+    margin: 0;
+}
+.jahr li{
+    float: right;
+    list-style: none;
+}
+
+th{
+    border: 1px black solid;
+}
+td{
+    border: 1px black solid;
+}
+.small{
+    font-size: x-small;
+}
+h2{
+    text-decoration: underline;
+}
