@@ -1,7 +1,6 @@
 window.onload = main;
 
 function main() {
-    const monthDays = document.querySelector(".days");
 
    
     
@@ -21,11 +20,11 @@ function main() {
         "November",
         "December",
       ]
-    let date=new Date();
-    let year=date.getFullYear();
-    let month =date.getMonth()+1
+    let dateToday=new Date();
+    let year=dateToday.getFullYear();
+    let month =dateToday.getMonth()+1
     
-    let day =date.getDate()
+    let day =dateToday.getDate()
     console.log(day)
     let genauerTag
     let holidayYesNoD = false;
@@ -35,10 +34,10 @@ function main() {
         "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
     ];
     const dayNames = ["Sonntag","Montag","Dienstag","Mittwoch","Donnserstag","Freitag","Samstag"];
-    let monthD = monthNames[date.getMonth()];
+    let monthD = monthNames[dateToday.getMonth()];
     document.getElementById('infotext_month').innerHTML = monthD ;
 
-    const dayOfWeek = dayNames[date.getDay()];
+    const dayOfWeek = dayNames[dateToday.getDay()];
     document.getElementById('infotext_dayweek').innerHTML = dayOfWeek
    
 
@@ -63,10 +62,10 @@ function main() {
         holidayYesNoD = true;
     }
 
-    console.log('year:' + date.getFullYear())
+    console.log('year:' + dateToday.getFullYear())
     console.log('year:' + year)
 
-    document.getElementById("infotext_year").innerHTML = date
+    document.getElementById("infotext_year").innerHTML = dateToday
 
 
     if (day <= 7) {
@@ -82,7 +81,7 @@ function main() {
         genauerTag=5
     }
     document.getElementById('infotext_year').innerHTML = year;
-    document.getElementById("infotext_dateD").innerHTML = date;
+    document.getElementById("infotext_dateD").innerHTML = dateToday;
     document.getElementById("infotext_day").innerHTML = genauerTag;
     // document.getElementById("infotext_month").innerHTML = monthD;
     document.getElementById("infotext_dateD").innerHTML = germanDate;
@@ -94,14 +93,69 @@ function main() {
 
      //Kalendar
 
-     const lastDay = new Date(
-        date.getFullYear(),
-        date.getMonth() + 1,
-        0
-      ).getDate();
+     const monthDays = document.querySelector(".days");
 
-    const firstDay=new Date(date.getFullYear(), date.getMonth(),1).getDate()
-    console.log(lastDay);
+     const lastDay = new Date(
+        dateToday.getFullYear(),
+        dateToday.getMonth() + 1,
+        0
+      ).getDate(); //z.B. 31, 30, 28
+
+    let firstOfMonthWeekday = new Date(
+        dateToday.getFullYear(),
+        dateToday.getMonth(),
+        1
+      ).getDay(); // 0: Snntag, 1: Montag, Dienstag, Mittwoch...
+    let daysToDrawBefore = firstOfMonthWeekday == 0 ? 6 : firstOfMonthWeekday - 1;
+    // if (firstOfMonthWeekday == 0) {
+    //     daysToDrawBefore = 6;
+    // } else {
+    //     daysToDrawBefore = firstOfMonthWeekday - 1;
+    // }
+
+    const weekdayOfLastDay=new Date(
+        dateToday.getFullYear(),
+        dateToday.getMonth()+1,
+        0
+      ).getDay() //Montag, Dienstag, Mittwoch...
+
+    const firstDayIndex = dateToday.getDay();
+
+ 
+    const lastDayOfPreviousMonth = new Date(
+        dateToday.getFullYear(),
+        dateToday.getMonth(),
+        0
+      ).getDate(); //z.B. 31, 30, 28
+      console.log(lastDayOfPreviousMonth)
+     
+      let days = [];
+
+      for (let i = 0; i < weekdayOfFirstDay-1; i++) {
+        let newday = document.createElement("td");
+        newday.innerHTML = (lastDayOfPreviousMonth-i);
+        days.push(newday);
+      }
+
+      for (let i = 1; i <= lastDay; i++){
+        let newday = document.createElement("td");
+        newday.innerHTML = i;
+        days.push(newday);
+      }
+
+      for (let i = 1; weekdayOfLastDay != 0 && weekdayOfLastDay+i < 8; i++) {
+        let newday = document.createElement("td");
+        newday.innerHTML = (i);
+        days.push(newday);
+      }
+
+
+      let anzahlWochen = days.length/7
+     
+      console.log(days)
+
+      
+
 
 function easterDate( year ) {
     var date, a, b, c, m, d;
@@ -132,7 +186,6 @@ function easterDate( year ) {
     // Gregorian Western Easter Sunday
     return date;
 }
-//Kalender date 
 
 }
 
