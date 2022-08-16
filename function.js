@@ -39,6 +39,8 @@ function main() {
 
     const dayOfWeek = dayNames[dateToday.getDay()];
     document.getElementById('infotext_dayweek').innerHTML = dayOfWeek
+    document.getElementById('infotext_dayweekmonat').innerHTML = dayOfWeek
+
    
 
     // Feiertage, fix
@@ -62,8 +64,8 @@ function main() {
         holidayYesNoD = true;
     }
 
-    console.log('year:' + dateToday.getFullYear())
-    console.log('year:' + year)
+    // console.log('year:' + dateToday.getFullYear())
+    // console.log('year:' + year)
 
     document.getElementById("infotext_year").innerHTML = dateToday
 
@@ -80,6 +82,9 @@ function main() {
     }else{
         genauerTag=5
     }
+    document.getElementById("kalendarTitle").innerHTML=monthD 
+    document.getElementById("calendarH").innerHTML=germanDate
+
     document.getElementById('infotext_year').innerHTML = year;
     document.getElementById("infotext_dateD").innerHTML = dateToday;
     document.getElementById("infotext_day").innerHTML = genauerTag;
@@ -94,65 +99,62 @@ function main() {
      //Kalendar
 
      const monthDays = document.querySelector(".days");
-
-     const lastDay = new Date(
+    
+    const lastOfMonth = new Date(
         dateToday.getFullYear(),
         dateToday.getMonth() + 1,
         0
-      ).getDate(); //z.B. 31, 30, 28
+    );
+    const lastDay = lastOfMonth.getDate(); //z.B. 31, 30, 28
+    const lastOfMonthWeekday = lastOfMonth.getDay();
+    // 0    0
+    // 1    6
+    // 2    5
+    // 3    4
+    // 4    3
+    // 5    2
+    // 6    1
+    const daysToDrawAfter = lastOfMonthWeekday == 0 ? 0 : 7 - lastOfMonthWeekday;
 
-    let firstOfMonthWeekday = new Date(
+    let firstOfMonth =  new Date(
         dateToday.getFullYear(),
         dateToday.getMonth(),
         1
-      ).getDay(); // 0: Snntag, 1: Montag, Dienstag, Mittwoch...
+      );
+    let firstOfMonthWeekday = firstOfMonth.getDay(); // 0: Snntag, 1: Montag, Dienstag, Mittwoch...
     let daysToDrawBefore = firstOfMonthWeekday == 0 ? 6 : firstOfMonthWeekday - 1;
-    // if (firstOfMonthWeekday == 0) {
-    //     daysToDrawBefore = 6;
-    // } else {
-    //     daysToDrawBefore = firstOfMonthWeekday - 1;
-    // }
-
-    const weekdayOfLastDay=new Date(
-        dateToday.getFullYear(),
-        dateToday.getMonth()+1,
-        0
-      ).getDay() //Montag, Dienstag, Mittwoch...
-
-    const firstDayIndex = dateToday.getDay();
-
- 
-    const lastDayOfPreviousMonth = new Date(
+    let firstDayToDraw = new Date(
         dateToday.getFullYear(),
         dateToday.getMonth(),
-        0
-      ).getDate(); //z.B. 31, 30, 28
-      console.log(lastDayOfPreviousMonth)
+        1 - daysToDrawBefore
+      );
+    // if (firstOfMonthWeekday == 0) {
      
-      let days = [];
+    let kalender = '';
+    for (let i = 0; i < daysToDrawBefore + lastDay + daysToDrawAfter; i++) {
+        let cellDate = new Date (firstDayToDraw.getFullYear(), firstDayToDraw.getMonth(), firstDayToDraw.getDate() + i);
+        // Reihe öffnen
+        if (cellDate.getDay() == 1) {
+            kalender += '<tr>'
+        }
+        let cellClass = '';
+        // Zelle schreiben
+        if (cellDate.getDay() == 6) {
+            cellClass = 'we';
+        }
+        else if(cellDate.getDay()==0){
+            cellClass='w';
+        }
+        kalender += '<td class="' + cellClass + '">' + cellDate.getDate() + '</td>';
+        // Reihe schließen
+        if (cellDate.getDay() == 0) {
+            kalender += '</tr>';
+        }
+    }
+    console.log(kalender);
+    document.getElementById("monatskalender").innerHTML = kalender;
 
-      for (let i = 0; i < weekdayOfFirstDay-1; i++) {
-        let newday = document.createElement("td");
-        newday.innerHTML = (lastDayOfPreviousMonth-i);
-        days.push(newday);
-      }
-
-      for (let i = 1; i <= lastDay; i++){
-        let newday = document.createElement("td");
-        newday.innerHTML = i;
-        days.push(newday);
-      }
-
-      for (let i = 1; weekdayOfLastDay != 0 && weekdayOfLastDay+i < 8; i++) {
-        let newday = document.createElement("td");
-        newday.innerHTML = (i);
-        days.push(newday);
-      }
-
-
-      let anzahlWochen = days.length/7
-     
-      console.log(days)
+    }
 
       
 
@@ -187,6 +189,6 @@ function easterDate( year ) {
     return date;
 }
 
-}
+
 
 
