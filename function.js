@@ -86,6 +86,7 @@ function main() {
     document.getElementById("calendarH").innerHTML=germanDate
 
     document.getElementById('infotext_year').innerHTML = year;
+    document.getElementById('titelRight').innerHTML = year;
     document.getElementById("infotext_dateD").innerHTML = dateToday;
     document.getElementById("infotext_day").innerHTML = genauerTag;
     // document.getElementById("infotext_month").innerHTML = monthD;
@@ -137,14 +138,14 @@ function main() {
         if (cellDate.getDay() == 1) {
             kalender += '<tr>'
         }
-        let cellClass = '';
-        // Zelle schreiben
-        if (cellDate.getDay() == 6) {
-            cellClass = 'we';
-        }
-        else if(cellDate.getDay()==0){
-            cellClass='w';
-        }
+        // let cellClass = '';
+        // // Zelle schreiben
+        // if (cellDate.getDay() == 6) {
+        //     cellClass = 'we';
+        // }
+        // else if(cellDate.getDay()==0){
+        //     cellClass='w';
+        // }
         kalender += '<td class="' + cellClass + '">' + cellDate.getDate() + '</td>';
         // Reihe schließen
         if (cellDate.getDay() == 0) {

@@ -39,6 +39,9 @@ body{
 
 
 }    
+/* #rightp{
+    margin-left: 3em;
+} */
 .we{
     color: rgb(60, 60, 184);
     font-size: larger;
@@ -80,4 +83,11 @@ td{
 }
 h2{
     text-decoration: underline;
+}
+table, tr, td ,th {
+    border: none;
+}
+table{
+    background: darkcyan;
+
 }
