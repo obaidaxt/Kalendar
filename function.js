@@ -1,43 +1,25 @@
 window.onload = main;
+const monthNames = [
+    "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
+];
+let today = new Date();
+let calendarDate = today;
 
 function main() {
-
-   
+    let year=today.getFullYear();
+    let month =today.getMonth()+1
     
-  
-   
-    const months = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-      ]
-    let dateToday=new Date();
-    let year=dateToday.getFullYear();
-    let month =dateToday.getMonth()+1
-    
-    let day =dateToday.getDate()
-    console.log(day)
+    let day =today.getDate()
     let genauerTag
     let holidayYesNoD = false;
     
     let germanDate= day + "." + month + "." + year;
-    const monthNames = [
-        "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
-    ];
+
     const dayNames = ["Sonntag","Montag","Dienstag","Mittwoch","Donnserstag","Freitag","Samstag"];
-    let monthD = monthNames[dateToday.getMonth()];
+    let monthD = monthNames[today.getMonth()];
     document.getElementById('infotext_month').innerHTML = monthD ;
 
-    const dayOfWeek = dayNames[dateToday.getDay()];
+    const dayOfWeek = dayNames[today.getDay()];
     document.getElementById('infotext_dayweek').innerHTML = dayOfWeek
     document.getElementById('infotext_dayweekmonat').innerHTML = dayOfWeek
 
@@ -67,7 +49,7 @@ function main() {
     // console.log('year:' + dateToday.getFullYear())
     // console.log('year:' + year)
 
-    document.getElementById("infotext_year").innerHTML = dateToday
+    document.getElementById("infotext_year").innerHTML = today
 
 
     if (day <= 7) {
@@ -82,12 +64,12 @@ function main() {
     }else{
         genauerTag=5
     }
-    document.getElementById("kalendarTitle").innerHTML=monthD 
+    // document.getElementById("kalendarTitle").innerHTML=monthD 
     document.getElementById("calendarH").innerHTML=germanDate
 
     document.getElementById('infotext_year').innerHTML = year;
-    document.getElementById('titelRight').innerHTML = year;
-    document.getElementById("infotext_dateD").innerHTML = dateToday;
+    // document.getElementById('titelRight').innerHTML = year;
+    document.getElementById("infotext_dateD").innerHTML = today;
     document.getElementById("infotext_day").innerHTML = genauerTag;
     // document.getElementById("infotext_month").innerHTML = monthD;
     document.getElementById("infotext_dateD").innerHTML = germanDate;
@@ -97,13 +79,17 @@ function main() {
     console.log(easterDate(2021));
 
 
-     //Kalendar
+    drawCalendar();
+}
 
-     const monthDays = document.querySelector(".days");
+function drawCalendar() {
     
+    console.log('dawCalebdar: ' + calendarDate);
+    document.getElementById('kalendermonat').innerHTML = monthNames[calendarDate.getMonth()];
+    document.getElementById('kalenderjahr').innerHTML = calendarDate.getFullYear();
     const lastOfMonth = new Date(
-        dateToday.getFullYear(),
-        dateToday.getMonth() + 1,
+        calendarDate.getFullYear(),
+        calendarDate.getMonth() + 1,
         0
     );
     const lastDay = lastOfMonth.getDate(); //z.B. 31, 30, 28
@@ -118,49 +104,67 @@ function main() {
     const daysToDrawAfter = lastOfMonthWeekday == 0 ? 0 : 7 - lastOfMonthWeekday;
 
     let firstOfMonth =  new Date(
-        dateToday.getFullYear(),
-        dateToday.getMonth(),
+        calendarDate.getFullYear(),
+        calendarDate.getMonth(),
         1
       );
     let firstOfMonthWeekday = firstOfMonth.getDay(); // 0: Snntag, 1: Montag, Dienstag, Mittwoch...
     let daysToDrawBefore = firstOfMonthWeekday == 0 ? 6 : firstOfMonthWeekday - 1;
     let firstDayToDraw = new Date(
-        dateToday.getFullYear(),
-        dateToday.getMonth(),
+        calendarDate.getFullYear(),
+        calendarDate.getMonth(),
         1 - daysToDrawBefore
       );
-    // if (firstOfMonthWeekday == 0) {
-     
+
+      
+
     let kalender = '';
     for (let i = 0; i < daysToDrawBefore + lastDay + daysToDrawAfter; i++) {
         let cellDate = new Date (firstDayToDraw.getFullYear(), firstDayToDraw.getMonth(), firstDayToDraw.getDate() + i);
         // Reihe öffnen
         if (cellDate.getDay() == 1) {
             kalender += '<tr>'
+            kalender += '<td class="small">kwTest</td>'
         }
-        // let cellClass = '';
-        // // Zelle schreiben
-        // if (cellDate.getDay() == 6) {
-        //     cellClass = 'we';
-        // }
-        // else if(cellDate.getDay()==0){
-        //     cellClass='w';
-        // }
+        let cellClass = '';
+        // Zelle schreiben
+        if (cellDate.getDay() == 6) {
+            cellClass = 'we';
+        }
+        else if(cellDate.getDay()==0){
+            cellClass='w';
+        }
         kalender += '<td class="' + cellClass + '">' + cellDate.getDate() + '</td>';
         // Reihe schließen
         if (cellDate.getDay() == 0) {
             kalender += '</tr>';
         }
+
+
     }
-    console.log(kalender);
     document.getElementById("monatskalender").innerHTML = kalender;
 
+}
+
+
+    function decreaseMonth() {
+        calendarDate = new Date(calendarDate.getFullYear(), calendarDate.getMonth() - 1, 15);
+        drawCalendar();
     }
 
-      
-
-
-function easterDate( year ) {
+    function increaseMonth(){
+        calendarDate = new Date(calendarDate.getFullYear(), calendarDate.getMonth() + 1, 15);
+        drawCalendar();
+    }
+    function decreaseYear(){
+        calendarDate = new Date(calendarDate.getFullYear()- 1, 0);
+        drawCalendar();
+    }
+    function increaseYear(){
+        calendarDate= new Date(calendarDate.getFullYear()+1, 0);
+        drawCalendar();
+    }
+    function easterDate( year ) {
     var date, a, b, c, m, d;
     // Instantiate the date object.
     date = new Date;
@@ -189,7 +193,6 @@ function easterDate( year ) {
     // Gregorian Western Easter Sunday
     return date;
 }
-
 
 
 

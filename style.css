@@ -62,10 +62,6 @@ body{
 }
 .jahr{
     font-size: 1.5rem;
-
-    border-right: 2px solid black;
-    padding: 0;
-    margin: 0;
 }
 .jahr li{
     float: right;
@@ -90,4 +86,10 @@ table, tr, td ,th {
 table{
     background: darkcyan;
 
+}
+#kalendermonat{
+    padding: 2%;
+}
+#kalenderjahr{
+    padding: 2%;
 }

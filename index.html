@@ -15,90 +15,81 @@
             <h1>Kalenderblatt vom <span id="calendarH"></span></h1>
         </div>  
         <div class="link">
-            <table id="monatskalender" class="calender">
-                <ul class="monat">
-                    <!-- <i class="pfeil fas fa-angle-left prev"></i> -->
-                    <li id="kalendarTitle"> x </li>
-                    <!-- <i class="pfeil fas fa-angle-right next" id="rightp"></i> -->
+            <table class="calender">
+                <thead>
 
-                </ul>
-
-
-                <ul class = "jahr">
-                    <!-- <i class="pfeil fas fa-angle-left prev"></i> -->
-
-                    <li id="titelRight"> x </li>
-                    <!-- <i class="pfeil fas fa-angle-right next"></i> -->
-
-                </ul>
-
-                <!-- <div class="month monat">
-                    <i class="fas fa-angle-left prev"></i>
-                    <div class="date">
-                      <h1></h1>
-                      <p></p>
-                    </div>
-                    <i class="fas fa-angle-right next"></i>
-                  </div> -->
-                
-                <tr>
-                    <th class="kw weekdays">
-                        KW
+                    <th colspan="4"  class="monatujahr">
+                        <button class="pfeil" onclick="decreaseMonth()" id="increaseMonths"> <i class="fa-solid fa-caret-left"></i></i></button>
+                        <span id="kalendermonat" class="monatsname">TEST</span>
+                        <button  class="pfeil" onclick="increaseMonth()"> <i class="fa-solid fa-caret-right"></i> </button>
                     </th>
-                    <th>Montag</th>
-                    <th>Dienstag</th>
-                    <th>Donnerstag</th>
-                    <th>Freitag</th>
-                    <th class="we">Samstag</th>
-                    <th class="w">Sonntag</th>
-                </tr>
-                <div class="days"></div>
 
-                <tr>
-                    <td class="small">28</td>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td class="we">5</td>
-                    <td class="w">6</td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td>8</td>
-                    <td>9</td>
-                    <td>10</td>
-                    <td>11</td>
-                    <td class="we">12</td>
-                    <td class="w">13</td>
-                </tr>
-                <tr>
-                    <td>14</td>
-                    <td>15</td>
-                    <td>16</td>
-                    <td>17</td>
-                    <td>18</td>
-                    <td class="we">19</td>
-                    <td class="w">20</td>
-                </tr>
-                <tr>
-                    <td>21</td>
-                    <td>22</td>
-                    <td>23</td>
-                    <td>24</td>
-                    <td>25</td>
-                    <td class="we">26</td>
-                    <td class="w">27</td>
-                </tr>
-                <tr>
-                    <td>28</td>
-                    <td>29</td>
-                    <td>30</td>
-                    <td>31</td>
-                    <td class="small">1</td>
-                    <td class="small we">2</td>
-                    <td class="small w">3</td>
-                </tr>
+                    <th colspan="4" class="monatujahr">
+                        <button  class="pfeil" onclick="decreaseYear()"> <i class="fa-solid fa-caret-left"></i> </button>
+                        <span id="kalenderjahr" class="monatsname" >TEST</span>
+                        <button  class="pfeil" onclick="increaseYear()"> <i class="fa-solid fa-caret-right"></i> </button>  
+                    </th>
+                    <tr>
+                        <th class="kw weekdays">
+                            KW
+                        </th>
+                        <th>Montag</th>
+                        <th>Dienstag</th>
+                        <th>Mittwoch</th>
+                        <th>Donnerstag</th>
+                        <th>Freitag</th>
+                        <th class="we">Samstag</th>
+                        <th class="w">Sonntag</th>
+                    </tr>
+                </thead>
+                <tbody id="monatskalender" >
+                    <tr>
+                        <td class="small">28</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td class="we">5</td>
+                        <td class="w">6</td>
+                    </tr>
+                    <tr>
+                        <td class="small">29</td>
+                        <td>7</td>
+                        <td>8</td>
+                        <td>9</td>
+                        <td>10</td>
+                        <td>11</td>
+                        <td class="we">12</td>
+                        <td class="w">13</td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td>15</td>
+                        <td>16</td>
+                        <td>17</td>
+                        <td>18</td>
+                        <td class="we">19</td>
+                        <td class="w">20</td>
+                    </tr>
+                    <tr>
+                        <td>21</td>
+                        <td>22</td>
+                        <td>23</td>
+                        <td>24</td>
+                        <td>25</td>
+                        <td class="we">26</td>
+                        <td class="w">27</td>
+                    </tr>
+                    <tr>
+                        <td>28</td>
+                        <td>29</td>
+                        <td>30</td>
+                        <td>31</td>
+                        <td class="small">1</td>
+                        <td class="small we">2</td>
+                        <td class="small w">3</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
         <div class ="right">
