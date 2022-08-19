@@ -93,3 +93,27 @@ table{
 #kalenderjahr{
     padding: 2%;
 }
+.changeToday{   
+                    font-size: xx-large;
+                    background-color: rgb(206, 47, 47);
+                    color: aliceblue;                                                                               
+}
+.changeHoliday{
+    font-size: xx-large;
+    background-color: rgb(206, 47, 47);
+    color: aliceblue;
+}
+.changeOstern{
+    font-size: xx-large;
+    background-color: rgb(206, 47, 47);
+    color: aliceblue;
+}
+.changeFeiertag{
+    font-size: xx-large;
+    background-color: rgb(206, 47, 47);
+    color: aliceblue;
+}
+.calendarDate{
+background-color: black;
+color: azure;
+}

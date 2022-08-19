@@ -4,26 +4,38 @@ const monthNames = [
 ];
 let today = new Date();
 let calendarDate = today;
+let day = today.getDate();
+let dayCalendar =calendarDate.getDate();
+let month =today.getMonth()+1;
+let monthCalendar =calendarDate.getMonth()+1;
+const dayNames = ["Sonntag","Montag","Dienstag","Mittwoch","Donnserstag","Freitag","Samstag"];
+let year=today.getFullYear();
+let dayOfWeekCalendar= dayNames[calendarDate.getDate()];
+
+
+
+function changeBoxText(){
+    let monthD = monthNames[calendarDate.getMonth()];
+    document.getElementById('infotext_month').innerHTML = monthD;
+
+    let dayOfWeek = dayNames[calendarDate.getDay()];
+    document.getElementById('infotext_dayweek').innerHTML = dayOfWeek
+    document.getElementById('infotext_dayweekmonat').innerHTML = dayOfWeek
+}
+
+
 
 function main() {
-    let year=today.getFullYear();
-    let month =today.getMonth()+1
     
-    let day =today.getDate()
     let genauerTag
     let holidayYesNoD = false;
     
     let germanDate= day + "." + month + "." + year;
 
-    const dayNames = ["Sonntag","Montag","Dienstag","Mittwoch","Donnserstag","Freitag","Samstag"];
-    let monthD = monthNames[today.getMonth()];
-    document.getElementById('infotext_month').innerHTML = monthD ;
 
-    const dayOfWeek = dayNames[today.getDay()];
-    document.getElementById('infotext_dayweek').innerHTML = dayOfWeek
-    document.getElementById('infotext_dayweekmonat').innerHTML = dayOfWeek
+    changeBoxText();
+  
 
-   
 
     // Feiertage, fix
     if (day == 1 && month == 1 ) {
@@ -64,36 +76,30 @@ function main() {
     }else{
         genauerTag=5
     }
-    // document.getElementById("kalendarTitle").innerHTML=monthD 
     document.getElementById("calendarH").innerHTML=germanDate
-
     document.getElementById('infotext_year').innerHTML = year;
-    // document.getElementById('titelRight').innerHTML = year;
     document.getElementById("infotext_dateD").innerHTML = today;
     document.getElementById("infotext_day").innerHTML = genauerTag;
-    // document.getElementById("infotext_month").innerHTML = monthD;
     document.getElementById("infotext_dateD").innerHTML = germanDate;
+    //kann man mit normal if statement 
     document.getElementById("infotext_holiday").innerHTML = holidayYesNoD ? '' : 'nicht';
-
-    console.log(year);
-    console.log(easterDate(2021));
-
-
     drawCalendar();
 }
 
 function drawCalendar() {
-    
-    console.log('dawCalebdar: ' + calendarDate);
     document.getElementById('kalendermonat').innerHTML = monthNames[calendarDate.getMonth()];
     document.getElementById('kalenderjahr').innerHTML = calendarDate.getFullYear();
     const lastOfMonth = new Date(
         calendarDate.getFullYear(),
-        calendarDate.getMonth() + 1,
+        calendarDate.getMonth() +1,
         0
     );
+    console.log(lastOfMonth)
     const lastDay = lastOfMonth.getDate(); //z.B. 31, 30, 28
     const lastOfMonthWeekday = lastOfMonth.getDay();
+    console.log(lastOfMonthWeekday)
+
+
     // 0    0
     // 1    6
     // 2    5
@@ -120,6 +126,7 @@ function drawCalendar() {
 
     let kalender = '';
     for (let i = 0; i < daysToDrawBefore + lastDay + daysToDrawAfter; i++) {
+        // HIER WERDEN DIE TAGE GEBAUT!!
         let cellDate = new Date (firstDayToDraw.getFullYear(), firstDayToDraw.getMonth(), firstDayToDraw.getDate() + i);
         // Reihe öffnen
         if (cellDate.getDay() == 1) {
@@ -129,16 +136,41 @@ function drawCalendar() {
         let cellClass = '';
         // Zelle schreiben
         if (cellDate.getDay() == 6) {
-            cellClass = 'we';
+            cellClass += 'we ';
         }
         else if(cellDate.getDay()==0){
-            cellClass='w';
+            cellClass += 'w ';
         }
-        kalender += '<td class="' + cellClass + '">' + cellDate.getDate() + '</td>';
+        else if(cellDate.getDate()==today.getDate() && cellDate.getMonth()==today.getMonth() && cellDate.getFullYear()==today.getFullYear()){
+            cellClass +='changeToday '
+        }
+        else if(isFeiertag(cellDate)){
+            cellClass +='changeFeiertag '
+        }
+
+        if(calendarDate.getDate() == cellDate.getDate() && calendarDate.getMonth() == cellDate.getMonth()){
+            cellClass +='calendarDate '
+        }
+        
+       
+        // else if(cellDate.ostersonntag.getDate()  && ostersonntag.getMonth() + 1){
+        //     cellClass +='changeOstern'
+        // }
+
+        // console.log(cellDate.getDate())
+        console.log(calendarDate.getDate())
+
+        let onClick =  '"setDate(new Date('+cellDate.getFullYear()+','+cellDate.getMonth()+','+cellDate.getDate()+'))"';
+    //HTML Beispiel->   "setDate(new Date(2022,7,19))"
+
+        let neuerTag = '<td class="' + cellClass + '"onClick='+ onClick + ' ">' + cellDate.getDate() + '</td>'; // In Dieser zeile wird der Tag zusammengebaut
+        kalender += neuerTag;
+
         // Reihe schließen
         if (cellDate.getDay() == 0) {
             kalender += '</tr>';
         }
+
 
 
     }
@@ -147,23 +179,39 @@ function drawCalendar() {
 }
 
 
-    function decreaseMonth() {
-        calendarDate = new Date(calendarDate.getFullYear(), calendarDate.getMonth() - 1, 15);
-        drawCalendar();
+function setDate(dateToSet){ 
+
+    calendarDate = dateToSet;    
+    drawCalendar();
+    changeBoxText();
+}
+
+function decreaseMonth() {
+    setDate(new Date(calendarDate.getFullYear(), calendarDate.getMonth() - 1, calendarDate.getDate()));
+}
+function increaseMonth(){
+    setDate(new Date(calendarDate.getFullYear(), calendarDate.getMonth() + 1, calendarDate.getDate()));
+}
+function decreaseYear(){
+    setDate(new Date(calendarDate.getFullYear()- 1, calendarDate.getMonth(),calendarDate.getDate()));
+}
+function increaseYear(){
+    setDate(new Date(calendarDate.getFullYear()+1, calendarDate.getMonth(),calendarDate.getDate()));
+}
+
+function isFeiertag(cellDate){
+    let holidayDays=[1,3,6,9,5,30,10]
+    let holidayMonths=[0,1,4,5,6,8,9]
+    for (let i=0; i < 6 ; i++) {
+        if(cellDate.getDate()==holidayDays[i] && cellDate.getMonth()==holidayMonths[i]){
+            return true 
+            
+        }
+        
     }
 
-    function increaseMonth(){
-        calendarDate = new Date(calendarDate.getFullYear(), calendarDate.getMonth() + 1, 15);
-        drawCalendar();
-    }
-    function decreaseYear(){
-        calendarDate = new Date(calendarDate.getFullYear()- 1, 0);
-        drawCalendar();
-    }
-    function increaseYear(){
-        calendarDate= new Date(calendarDate.getFullYear()+1, 0);
-        drawCalendar();
-    }
+}
+
     function easterDate( year ) {
     var date, a, b, c, m, d;
     // Instantiate the date object.
