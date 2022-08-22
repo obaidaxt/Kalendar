@@ -4,38 +4,56 @@ const monthNames = [
 ];
 let today = new Date();
 let calendarDate = today;
-let day = today.getDate();
 let dayCalendar =calendarDate.getDate();
-let month =today.getMonth()+1;
 let monthCalendar =calendarDate.getMonth()+1;
 const dayNames = ["Sonntag","Montag","Dienstag","Mittwoch","Donnserstag","Freitag","Samstag"];
-let year=today.getFullYear();
 let dayOfWeekCalendar= dayNames[calendarDate.getDate()];
 
 
 
 function changeBoxText(){
+    let year=calendarDate.getFullYear();
+    let month =calendarDate.getMonth()+1;
+    let day = calendarDate.getDate();
     let monthD = monthNames[calendarDate.getMonth()];
     document.getElementById('infotext_month').innerHTML = monthD;
+
+    let germanDate= calendarDate.getDate() + "." + month + "." + year;
+    document.getElementById("infotext_dateD").innerHTML = germanDate;
+    
+    let exactDay
+    
+    if (day <= 7) {
+        exactDay =1;
+    }else if (day <= 14){
+        exactDay =2
+    }else if(day <=22){
+        exactDay =3
+    }
+    else if (day<=28){
+        exactDay =4
+    }else{
+        exactDay =5
+    }
+    document.getElementById("infotext_day").innerHTML = exactDay;
+
+    document.getElementById("infotext_year").innerHTML = year
 
     let dayOfWeek = dayNames[calendarDate.getDay()];
     document.getElementById('infotext_dayweek').innerHTML = dayOfWeek
     document.getElementById('infotext_dayweekmonat').innerHTML = dayOfWeek
 }
 
-
-
 function main() {
-    
-    let genauerTag
+    let year=today.getFullYear();
+    let month =today.getMonth()+1;
+    let day = today.getDate();
+    let exactDay
     let holidayYesNoD = false;
     
     let germanDate= day + "." + month + "." + year;
 
-
     changeBoxText();
-  
-
 
     // Feiertage, fix
     if (day == 1 && month == 1 ) {
@@ -51,9 +69,9 @@ function main() {
     }
     // Feiertage, beweglich
     let ostersonntag = easterDate(year);
-    let ostermontag = new Date(ostersonntag.getFullYear(), ostersonntag.getMonth(), ostersonntag.getDate() + 1);
-    let karfreitag = new Date(ostersonntag.getFullYear(), ostersonntag.getMonth(), ostersonntag.getDate() - 2);
-    let christihimmelfahrt = new Date(ostersonntag.getFullYear(), ostersonntag.getMonth(), ostersonntag.getDate() + 39);
+    // let ostermontag = new Date(ostersonntag.getFullYear(), ostersonntag.getMonth(), ostersonntag.getDate() + 1);
+    // let karfreitag = new Date(ostersonntag.getFullYear(), ostersonntag.getMonth(), ostersonntag.getDate() - 2);
+    // let christihimmelfahrt = new Date(ostersonntag.getFullYear(), ostersonntag.getMonth(), ostersonntag.getDate() + 39);
     if (day == ostersonntag.getDate() && month == ostersonntag.getMonth() + 1) {
         holidayYesNoD = true;
     }
@@ -65,21 +83,21 @@ function main() {
 
 
     if (day <= 7) {
-        genauerTag =1;
+        exactDay =1;
     }else if (day <= 14){
-        genauerTag=2
+        exactDay =2
     }else if(day <=22){
-        genauerTag=3
+        exactDay =3
     }
     else if (day<=28){
-        genauerTag=4
+        exactDay =4
     }else{
-        genauerTag=5
+        exactDay =5
     }
     document.getElementById("calendarH").innerHTML=germanDate
     document.getElementById('infotext_year').innerHTML = year;
     document.getElementById("infotext_dateD").innerHTML = today;
-    document.getElementById("infotext_day").innerHTML = genauerTag;
+    document.getElementById("infotext_day").innerHTML = exactDay;
     document.getElementById("infotext_dateD").innerHTML = germanDate;
     //kann man mit normal if statement 
     document.getElementById("infotext_holiday").innerHTML = holidayYesNoD ? '' : 'nicht';
@@ -124,14 +142,14 @@ function drawCalendar() {
 
       
 
-    let kalender = '';
+    let schedule = '';
     for (let i = 0; i < daysToDrawBefore + lastDay + daysToDrawAfter; i++) {
         // HIER WERDEN DIE TAGE GEBAUT!!
         let cellDate = new Date (firstDayToDraw.getFullYear(), firstDayToDraw.getMonth(), firstDayToDraw.getDate() + i);
         // Reihe öffnen
         if (cellDate.getDay() == 1) {
-            kalender += '<tr>'
-            kalender += '<td class="small">kwTest</td>'
+            schedule += '<tr>'
+            schedule += '<td class="small">kwTest</td>'
         }
         let cellClass = '';
         // Zelle schreiben
@@ -163,18 +181,18 @@ function drawCalendar() {
         let onClick =  '"setDate(new Date('+cellDate.getFullYear()+','+cellDate.getMonth()+','+cellDate.getDate()+'))"';
     //HTML Beispiel->   "setDate(new Date(2022,7,19))"
 
-        let neuerTag = '<td class="' + cellClass + '"onClick='+ onClick + ' ">' + cellDate.getDate() + '</td>'; // In Dieser zeile wird der Tag zusammengebaut
-        kalender += neuerTag;
+        let newDay = '<td class="' + cellClass + '"onClick='+ onClick + ' ">' + cellDate.getDate() + '</td>'; // In Dieser zeile wird der Tag zusammengebaut
+        schedule += newDay;
 
         // Reihe schließen
         if (cellDate.getDay() == 0) {
-            kalender += '</tr>';
+            schedule += '</tr>';
         }
 
 
 
     }
-    document.getElementById("monatskalender").innerHTML = kalender;
+    document.getElementById("monatskalender").innerHTML = schedule;
 
 }
 
