@@ -94,9 +94,9 @@ table{
     padding: 2%;
 }
 .changeToday{   
-                    font-size: x-large;
-                    background-color: rgb(206, 47, 47);
-                    color: aliceblue;                                                                               
+    font-size: x-large;
+    background-color: rgb(206, 47, 47);
+    color: aliceblue;                                                                               
 }
 .changeHoliday{
     font-size: x-large;

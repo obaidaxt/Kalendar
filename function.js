@@ -79,7 +79,6 @@ function main() {
     // console.log('year:' + dateToday.getFullYear())
     // console.log('year:' + year)
 
-    document.getElementById("infotext_year").innerHTML = today
 
 
     if (day <= 7) {
