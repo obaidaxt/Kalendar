@@ -1,0 +1,7 @@
+let year=today.getFullYear();
+let month =today.getMonth()+1;
+let day = today.getDate();
+let exactDay
+
+let germanDate= day + "." + month + "." + year;
+

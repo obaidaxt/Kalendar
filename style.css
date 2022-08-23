@@ -83,10 +83,6 @@ h2{
 table, tr, td ,th {
     border: none;
 }
-table{
-    background: darkcyan;
-
-}
 #kalendermonat{
     padding: 2%;
 }
@@ -95,26 +91,40 @@ table{
 }
 .changeToday{   
     font-size: x-large;
-    background-color: rgb(206, 47, 47);
     color: aliceblue;                                                                               
 }
 .changeHoliday{
     font-size: x-large;
-    background-color: rgb(206, 47, 47);
-    color: aliceblue;
+    color: rgb(246, 255, 240);
 }
 .changeOstern{
     font-size: x-large;
-    background-color: rgb(206, 47, 47);
-    color: aliceblue;
+    color: rgb(246, 255, 240);
 }
 .changeFeiertag{
     font-size: x-large;
-    background-color: rgb(206, 47, 47);
-    color: aliceblue;
+    color: rgb(246, 255, 240);
 }
-.calendarDate{
+/* .calendarDate{
 font-size: x-large;
 background-color: black;
 color: azure;
+} */
+.link td:hover{
+    color: rgb(160, 212, 16);
 }
+.link{
+    background:  url('https://images.unsplash.com/photo-1582555483257-4681c9dee5f3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTU1fHxzZWV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60') no-repeat ;
+    background-size: 100% 100%;
+}
+ .kw td:hover{
+    color: unset;
+}
+
+
+
+
+
+
+
+
