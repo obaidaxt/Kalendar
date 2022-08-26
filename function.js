@@ -39,9 +39,7 @@ function changeBoxText(){
     }
     // Feiertage, beweglich
     let ostersonntag = easterDate(year);
-    // let ostermontag = new Date(ostersonntag.getFullYear(), ostersonntag.getMonth(), ostersonntag.getDate() + 1);
-    // let karfreitag = new Date(ostersonntag.getFullYear(), ostersonntag.getMonth(), ostersonntag.getDate() - 2);
-    // let christihimmelfahrt = new Date(ostersonntag.getFullYear(), ostersonntag.getMonth(), ostersonntag.getDate() + 39);
+   
     if (day == ostersonntag.getDate() && month == ostersonntag.getMonth() + 1) {
         holidayYesNoD = true;
     }
@@ -62,7 +60,6 @@ function changeBoxText(){
     }
     document.getElementById("calendarH").innerHTML=germanDate
     document.getElementById("infotext_dateD").innerHTML = germanDate;
-    //kann man mit normal if statement 
     document.getElementById("infotext_holiday").innerHTML = holidayYesNoD ? '' : 'nicht';
     document.getElementById("infotext_day").innerHTML = exactDay;
     document.getElementById("infotext_year").innerHTML = year
@@ -112,7 +109,7 @@ function drawCalendar() {
         // Reihe öffnen
         if (cellDate.getDay() == 1) {
             schedule += '<tr>'
-            schedule += '<td class="small kw">kwTest</td>'
+            schedule += '<td class="small kw">'+getKw(cellDate)+'</td>'
         }
         let cellClass = '';
         // Zelle schreiben
@@ -144,6 +141,25 @@ function drawCalendar() {
     document.getElementById("monatskalender").innerHTML = schedule;
 
 }
+
+function getKw(cellDate){  
+   let searchFirstMonday = new Date(cellDate.getFullYear(),0,1);
+   while(searchFirstMonday.getDay() != 1){ //Montag
+    searchFirstMonday = new Date(searchFirstMonday.getFullYear(),0,searchFirstMonday.getDate()+1)
+   }
+   let firstMonday = searchFirstMonday;
+
+  
+    let calendarweek=1;
+    let montag = firstMonday;
+    while(montag < cellDate){
+        montag = new Date(montag.getFullYear(),montag.getMonth(),montag.getDate()+7);  // immer +7 Tage 
+        calendarweek++; //  kalenderwoche++
+    }
+return calendarweek;
+}
+
+
 
 function setInfoDate(dateToSet){ 
     calendarInfoDate = dateToSet;    
